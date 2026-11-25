@@ -1,0 +1,24 @@
+package com.mihan.personalmanager;
+
+import android.os.Bundle;
+import com.getcapacitor.BridgeActivity;
+
+public class MainActivity extends BridgeActivity {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        registerPlugin(AgendaWidgetPlugin.class);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public void onBackPressed() {
+        if (getBridge() != null && getBridge().getWebView() != null) {
+            getBridge().getWebView().evaluateJavascript(
+                "window.dispatchEvent(new Event('apphardwareback'))", null
+            );
+        } else {
+            super.onBackPressed();
+        }
+    }
+}
